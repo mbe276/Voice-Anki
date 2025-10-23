@@ -21,6 +21,7 @@ lint:
 
 ## Placeholder test target
 test:
+	cd $(DEV_BACKEND) && pytest
 @echo "TODO: add test suite"
 
 ## Placeholder benchmark target

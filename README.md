@@ -26,4 +26,5 @@ npm install
 npm run dev
 ```
 
+For detailed setup steps, environment configuration, and operational notes, see [DEV_README.md](DEV_README.md). Architectural background lives in the [design document](docs/hands-free-anki-voice-reviewer.md).
 For detailed instructions, configuration options, and architectural background, refer to the design document in the `docs/` directory.

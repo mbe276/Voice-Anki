@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from json import JSONDecodeError, loads
 from json import loads
 from typing import Any, Dict
 
 import httpx
+
+from ..utils.text import strip_html
 
 RUBRIC_SYSTEM_PROMPT = (
     "You grade short spoken answers to study prompts. Return JSON only: "
@@ -31,6 +34,15 @@ class GradeService:
         """
 
         if not self.api_key:
+            gold = strip_html(back).strip().lower()
+            guess = transcript.strip().lower()
+            if not guess:
+                return {"ease": 1, "rationale": "No answer captured."}
+            if gold and guess == gold:
+                return {"ease": 4, "rationale": "Exact match."}
+            if gold and (guess in gold or gold in guess):
+                return {"ease": 3, "rationale": "Substantial overlap."}
+            return {"ease": 2, "rationale": "Partial or unmatched response."}
             rationale = "Stub grade (no API key configured)."
             return {"ease": 2, "rationale": rationale}
 
@@ -61,5 +73,9 @@ class GradeService:
             raise RuntimeError("LLM response missing content field")
 
         text = content[0].get("text", "{}").strip()
+        try:
+            parsed = loads(text)
+        except JSONDecodeError as exc:
+            raise RuntimeError("LLM response was not valid JSON") from exc
         parsed = loads(text)
         return {"ease": int(parsed.get("ease", 2)), "rationale": parsed.get("rationale", "")}

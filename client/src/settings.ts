@@ -55,6 +55,7 @@ export const defaultSettings: AppSettings = {
     echoCancellation: true,
     noiseSuppression: true,
     autoGainControl: true,
+    container: 'wav'
     container: 'webm'
   },
   network: {

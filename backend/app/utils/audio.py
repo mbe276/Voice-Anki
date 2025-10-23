@@ -9,6 +9,8 @@ from typing import Tuple
 def decode_base64_audio(payload: str) -> bytes:
     """Decode a base64 audio payload."""
 
+    if payload.startswith("data:"):
+        payload = payload.split(",", 1)[-1]
     return base64.b64decode(payload)
 
 

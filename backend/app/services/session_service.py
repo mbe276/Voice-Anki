@@ -56,6 +56,8 @@ class SessionService:
     async def process_answer(
         self,
         audio_payload: str,
+        *,
+        mime_type: Optional[str] = None,
         stt: Any,
         grader: Any,
         anki: Any,
@@ -65,6 +67,15 @@ class SessionService:
         """Execute the full transcription → grading → marking pipeline."""
 
         audio_bytes = decode_base64_audio(audio_payload)
+        if not audio_bytes:
+            raise ValueError("Audio payload was empty")
+        if mime_type:
+            mimetype = mime_type
+            normalized_audio = audio_bytes
+        else:
+            mimetype, normalized_audio = sniff_mimetype(audio_bytes)
+        with stopwatch() as elapsed:
+            transcript = await stt.transcribe(normalized_audio, mimetype)
         mimetype, audio_bytes = sniff_mimetype(audio_bytes)
         with stopwatch() as elapsed:
             transcript = await stt.transcribe(audio_bytes, mimetype)

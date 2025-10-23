@@ -34,6 +34,18 @@ class GenericResponse(BaseModel):
 
 
 class AudioAnswerRequest(BaseModel):
+    """Answer payload containing the recorded audio."""
+
+    audio_base64: str = Field(
+        description="Base64-encoded audio data",
+        min_length=1,
+    )
+    mime_type: Optional[str] = Field(
+        default=None, description="Client-provided MIME type of the audio payload"
+    )
+    client_latency_ms: Optional[int] = Field(
+        default=None, description="Client-measured latency in milliseconds"
+    )
     """Simplified answer payload containing base64 encoded audio."""
 
     audio_base64: str = Field(description="Base64-encoded audio data (temporary scaffold format)")

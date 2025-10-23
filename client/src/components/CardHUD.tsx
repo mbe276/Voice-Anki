@@ -4,6 +4,10 @@ interface CardHUDProps {
   transcript?: string;
   rationale?: string;
   ease?: number;
+  latency_ms?: number;
+}
+
+export function CardHUD({ deckName, front, transcript, rationale, ease, latency_ms }: CardHUDProps) {
 }
 
 export function CardHUD({ deckName, front, transcript, rationale, ease }: CardHUDProps) {
@@ -25,6 +29,10 @@ export function CardHUD({ deckName, front, transcript, rationale, ease }: CardHU
         <div>
           <dt>Rationale</dt>
           <dd>{rationale ?? '—'}</dd>
+        </div>
+        <div>
+          <dt>Server Latency</dt>
+          <dd>{latency_ms !== undefined ? `${latency_ms} ms` : '—'}</dd>
         </div>
       </dl>
     </section>

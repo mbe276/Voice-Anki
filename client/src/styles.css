@@ -79,3 +79,9 @@ button {
   margin: 0;
   color: #94a3b8;
 }
+
+.voice-capture .error {
+  margin: 0;
+  color: #f87171;
+  font-weight: 600;
+}
