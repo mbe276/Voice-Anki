@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.venv/
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+*.log
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Artifacts
+*.coverage
+htmlcov/
+.coverage

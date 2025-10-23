@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ../backend
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANKI_URL=${ANKI_URL:-http://host.docker.internal:8765}
+      - API_TOKEN=${API_TOKEN}
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../backend/app:/app/app:ro
+      - ../.env:/app/.env:ro

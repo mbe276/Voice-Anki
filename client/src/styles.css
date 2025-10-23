@@ -1,0 +1,87 @@
+:root {
+  color-scheme: dark;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #111827;
+  color: #e5e7eb;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-hud {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+}
+
+.card-hud h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #a855f7;
+}
+
+.card-hud .prompt {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.card-hud dl {
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.card-hud dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.card-hud dd {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.voice-capture {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.voice-capture .status {
+  font-weight: 600;
+}
+
+.voice-capture .hint {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.voice-capture .error {
+  margin: 0;
+  color: #f87171;
+  font-weight: 600;
+}
