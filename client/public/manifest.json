@@ -1,0 +1,9 @@
+{
+  "name": "Hands-Free Anki",
+  "short_name": "Anki Voice",
+  "display": "standalone",
+  "start_url": ".",
+  "background_color": "#111827",
+  "theme_color": "#6366F1",
+  "icons": []
+}
