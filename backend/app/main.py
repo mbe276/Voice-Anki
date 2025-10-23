@@ -1,6 +1,7 @@
 """FastAPI application entry point for the Hands-Free Anki Voice Reviewer backend."""
 
 from fastapi import Depends, FastAPI, Header, HTTPException, status
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import models
@@ -68,6 +69,7 @@ async def pause_tts(
     tts_service: TextToSpeechService = Depends(get_tts_service),
     _: None = Depends(require_auth),
 ) -> models.GenericResponse:
+async def pause_tts(tts_service: TextToSpeechService = Depends(get_tts_service)) -> models.GenericResponse:
     """Pause any active text-to-speech playback."""
     await tts_service.pause()
     return models.GenericResponse(ok=True)
@@ -78,6 +80,7 @@ async def resume_tts(
     tts_service: TextToSpeechService = Depends(get_tts_service),
     _: None = Depends(require_auth),
 ) -> models.GenericResponse:
+async def resume_tts(tts_service: TextToSpeechService = Depends(get_tts_service)) -> models.GenericResponse:
     """Resume text-to-speech playback if supported."""
     await tts_service.resume()
     return models.GenericResponse(ok=True)
@@ -106,6 +109,16 @@ async def submit_answer(
         )
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+) -> models.AnswerResponse:
+    """Process an uploaded answer by running STT, grading, and updating Anki."""
+    result = await session_service.process_answer(
+        audio_payload=answer.audio_base64,
+        stt=stt_service,
+        grader=grade_service,
+        anki=anki_service,
+        tts=tts_service,
+        client_latency_ms=answer.client_latency_ms,
+    )
     return models.AnswerResponse(**result)
 
 

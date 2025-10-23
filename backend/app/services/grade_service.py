@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from json import JSONDecodeError, loads
+from json import loads
 from typing import Any, Dict
 
 import httpx
@@ -42,6 +43,8 @@ class GradeService:
             if gold and (guess in gold or gold in guess):
                 return {"ease": 3, "rationale": "Substantial overlap."}
             return {"ease": 2, "rationale": "Partial or unmatched response."}
+            rationale = "Stub grade (no API key configured)."
+            return {"ease": 2, "rationale": rationale}
 
         headers = {"Authorization": f"Bearer {self.api_key}"}
         payload = {
@@ -74,4 +77,5 @@ class GradeService:
             parsed = loads(text)
         except JSONDecodeError as exc:
             raise RuntimeError("LLM response was not valid JSON") from exc
+        parsed = loads(text)
         return {"ease": int(parsed.get("ease", 2)), "rationale": parsed.get("rationale", "")}

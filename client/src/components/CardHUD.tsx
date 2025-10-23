@@ -8,6 +8,9 @@ interface CardHUDProps {
 }
 
 export function CardHUD({ deckName, front, transcript, rationale, ease, latency_ms }: CardHUDProps) {
+}
+
+export function CardHUD({ deckName, front, transcript, rationale, ease }: CardHUDProps) {
   return (
     <section className="card-hud">
       <header>

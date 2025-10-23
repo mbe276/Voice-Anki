@@ -7,6 +7,8 @@ class DownsampleProcessor extends AudioWorkletProcessor {
     this.offset = 0;
     this.stride = sampleRate / this.outputSampleRate;
     this.phase = 0;
+    this.buffer = [];
+    this.outputSampleRate = 16000;
   }
 
   process(inputs) {
@@ -28,6 +30,12 @@ class DownsampleProcessor extends AudioWorkletProcessor {
           this.offset = 0;
         }
       }
+    const step = Math.max(1, Math.floor(sampleRate / this.outputSampleRate));
+    for (let i = 0; i < channel.length; i += step) {
+      this.buffer.push(channel[i]);
+    }
+    if (this.buffer.length >= this.outputSampleRate / 50) {
+      this.port.postMessage(this.buffer.splice(0));
     }
     return true;
   }

@@ -45,6 +45,11 @@ export class ApiClient {
         mime_type: mimeType,
         client_latency_ms: clientLatencyMs
       })
+  async submitAnswer(audioBase64: string) {
+    const response = await fetch(`${this.config.baseUrl}/api/answer`, {
+      method: 'POST',
+      headers: this.headers(),
+      body: JSON.stringify({ audio_base64: audioBase64 })
     });
     if (!response.ok) {
       throw new Error(`Failed to submit answer: ${response.status}`);

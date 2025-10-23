@@ -46,6 +46,10 @@ class AudioAnswerRequest(BaseModel):
     client_latency_ms: Optional[int] = Field(
         default=None, description="Client-measured latency in milliseconds"
     )
+    """Simplified answer payload containing base64 encoded audio."""
+
+    audio_base64: str = Field(description="Base64-encoded audio data (temporary scaffold format)")
+    client_latency_ms: Optional[int] = Field(default=None, description="Client-measured latency in milliseconds")
 
 
 class AnswerResponse(BaseModel):

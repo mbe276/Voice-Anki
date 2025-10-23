@@ -76,6 +76,9 @@ class SessionService:
             mimetype, normalized_audio = sniff_mimetype(audio_bytes)
         with stopwatch() as elapsed:
             transcript = await stt.transcribe(normalized_audio, mimetype)
+        mimetype, audio_bytes = sniff_mimetype(audio_bytes)
+        with stopwatch() as elapsed:
+            transcript = await stt.transcribe(audio_bytes, mimetype)
             card = await anki.current_card_snapshot()
             grade = await grader.grade(card["front"], card["back_excerpt"], transcript)
             ease = int(grade.get("ease", 2))

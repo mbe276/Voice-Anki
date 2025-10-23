@@ -4,6 +4,7 @@ from functools import lru_cache
 from typing import List
 
 from pydantic import AnyHttpUrl, BaseSettings, Field, validator
+from pydantic import AnyHttpUrl, BaseSettings, Field
 
 
 class Settings(BaseSettings):
@@ -15,6 +16,7 @@ class Settings(BaseSettings):
     backend_port: int = Field(default=8000, env="BACKEND_PORT")
     api_token: str | None = Field(default=None, env="API_TOKEN")
     allow_origins: List[str] = Field(default_factory=list, env="ALLOW_ORIGINS")
+    allow_origins: List[AnyHttpUrl] = Field(default_factory=list, env="ALLOW_ORIGINS")
 
     class Config:
         env_file = ".env"

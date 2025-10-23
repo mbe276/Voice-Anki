@@ -56,6 +56,7 @@ export const defaultSettings: AppSettings = {
     noiseSuppression: true,
     autoGainControl: true,
     container: 'wav'
+    container: 'webm'
   },
   network: {
     backendUrl: import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000',
